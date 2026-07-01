@@ -75,20 +75,18 @@ jobs:
 
       - name: Verify release asset exists
         run: |
-          HTTP_CODE=$(curl -sL -o /dev/null -w "%{http_code}" "${{ steps.meta.outputs.download_url }}")
-          if [ "$HTTP_CODE" -ge 200 ] && [ "$HTTP_CODE" -lt 400 ]; then
-            echo "ok: download URL valid (HTTP $HTTP_CODE)"
-          else
-            echo "download URL invalid (HTTP $HTTP_CODE), retrying in 30s..."
-            sleep 30
-            HTTP_CODE=$(curl -sL -o /dev/null -w "%{http_code}" "${{ steps.meta.outputs.download_url }}")
+          URL="${{ steps.meta.outputs.download_url }}"
+          for i in 1 2 3 4 5; do
+            HTTP_CODE=$(curl -sL -o /dev/null -w "%{http_code}" "$URL")
             if [ "$HTTP_CODE" -ge 200 ] && [ "$HTTP_CODE" -lt 400 ]; then
-              echo "ok: retry success (HTTP $HTTP_CODE)"
-            else
-              echo "fail: download URL invalid, skipping index update"
-              exit 1
+              echo "ok: download URL valid (HTTP $HTTP_CODE, attempt $i)"
+              exit 0
             fi
-          fi
+            echo "attempt $i: HTTP $HTTP_CODE, retrying in 30s..."
+            sleep 30
+          done
+          echo "fail: download URL still invalid after 5 attempts"
+          exit 1
 
       - name: Ensure fork exists
         id: fork
