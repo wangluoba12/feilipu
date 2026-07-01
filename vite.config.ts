@@ -11,7 +11,7 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
       formats: ['es'],
-      fileName: () => 'index',
+      fileName: () => 'index.mjs',
     },
     rollupOptions: {
       external: [...nodeBuiltins],
