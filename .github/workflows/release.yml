@@ -61,9 +61,11 @@ jobs:
           mkdir -p release
           cp dist/index.mjs release/
           cp package.json release/
-          cp -r dist/webui release/
+          if [ -d "dist/webui" ]; then
+            cp -r dist/webui release/
+          fi
           cd release
-          zip -r ../${PLUGIN_NAME}.zip index.mjs package.json webui
+          zip -r ../${PLUGIN_NAME}.zip index.mjs package.json webui 2>/dev/null || zip -r ../${PLUGIN_NAME}.zip index.mjs package.json
 
       - name: Verify zip contents
         run: |
