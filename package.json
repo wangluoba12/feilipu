@@ -3,6 +3,7 @@
   "plugin": "菲利普",
   "version": "1.0.0",
   "description": "NapCatQQ 群管机器人套件 - 群管、积分、社交、运营、自动化、账号管理",
+  "author": "wangluoba12",
   "type": "module",
   "main": "index.mjs",
   "napcat": {
