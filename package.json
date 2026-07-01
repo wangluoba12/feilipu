@@ -10,7 +10,7 @@
     "minVersion": "4.14.0"
   },
   "scripts": {
-    "build": "vite build && cp dist/index.js dist/index.mjs",
+    "build": "vite build",
     "build:all": "vite build && cp dist/index.js dist/index.mjs && cd webui && npm run build && cp -r dist/webui webui/",
     "prebuild": "mkdir -p dist",
     "dev": "vite build --watch",
