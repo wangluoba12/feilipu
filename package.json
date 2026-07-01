@@ -1,0 +1,34 @@
+{
+  "name": "napcat-plugin-philip",
+  "plugin": "菲利普",
+  "version": "1.0.0",
+  "description": "NapCatQQ 群管机器人套件 - 群管、积分、社交、运营、自动化、账号管理",
+  "type": "module",
+  "main": "index.mjs",
+  "napcat": {
+    "tags": ["群管", "工具", "管理", "自动化", "签到"],
+    "minVersion": "4.14.0"
+  },
+  "scripts": {
+    "build": "vite build && cp dist/index.js dist/index.mjs",
+    "build:all": "vite build && cp dist/index.js dist/index.mjs && cd webui && npm run build && cp -r dist/webui webui/",
+    "prebuild": "mkdir -p dist",
+    "dev": "vite build --watch",
+    "start": "node dist/index.mjs"
+  },
+  "dependencies": {
+    "node-cron": "^3.0.3",
+    "pino": "^9.5.0",
+    "pino-pretty": "^11.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/node-cron": "^3.0.11",
+    "typescript": "^5.7.0",
+    "vite": "^6.0.0",
+    "vite-plugin-dts": "^4.4.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
